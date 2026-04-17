@@ -23,7 +23,7 @@
 # print(person1.address)
 
 # person1.work()
-# person1.talks()
+# person1.talk()
 # person1.codes()
 
 # person2 = Person("Jane", 24, 'jane@gmail.com', 'Syokimau')
@@ -31,12 +31,12 @@
 # print(person2.address)
 
 # person2.work()
-# person2.talks()
+# person2.talk()
 # person2.codes()
 
-# Task Create a class called BankAccount with the following attributes: -account number - balance - owner name - date opened
-# Create a class called BankAccount with the following attributes: -account number -balance -owner name -date opened 2.Give the above BankAccount
-# class the following behaviour or methods: -deposit() -withdraw() -display_info() 3.Create two BankAccount objects that can deposit, withdraw and display_info
+# # Task Create a class called BankAccount with the following attributes: -account number - balance - owner name - date opened
+# # Create a class called BankAccount with the following attributes: -account number -balance -owner name -date opened 2.Give the above BankAccount
+# # class the following behaviour or methods: -deposit() -withdraw() -display_info() 3.Create two BankAccount objects that can deposit, withdraw and display_info
 
 # from datetime import datetime
 
@@ -110,23 +110,15 @@ Car1 = Car("Honda","Civic",'47 Litres','87 Octane(Regular)','90Km/h')
 print(type(Car1))
 print(Car1.brand)
 
-Car2 = Car("Nissan","Altima",'60 Litres','87 Octane(Regular)','110Km/h')
-print(type(Car2))
-print(Car2.brand)
-
-Car3 = Car("Tesla","Model 3",'70 Kw/h','100%','201Km/h')
-print(type(Car3))
-print(Car3.brand)
-
-Car4 = Car("Toyota","Camry",'60 Litres','87 Octane(Regular)','190Km/h')
-print(type(Car4))
-print(Car4.brand)
- 
 Car1.start()
 Car1.stop()
 Car1.refuel()
 Car1.drive()
 Car1.display_car_info()
+
+Car2 = Car("Nissan","Altima",'60 Litres','87 Octane(Regular)','110Km/h')
+print(type(Car2))
+print(Car2.brand)
 
 Car2.start()
 Car2.stop()
@@ -134,11 +126,19 @@ Car2.refuel()
 Car2.drive()
 Car2.display_car_info()
 
+Car3 = Car("Tesla","Model 3",'70 Kw/h','100%','201Km/h')
+print(type(Car3))
+print(Car3.brand)
+
 Car3.start()
 Car3.stop()
 Car3.refuel()
 Car3.drive()
 Car3.display_car_info()
+
+Car4 = Car("Toyota","Camry",'60 Litres','87 Octane(Regular)','190Km/h')
+print(type(Car4))
+print(Car4.brand)
 
 Car4.start()
 Car4.stop()
