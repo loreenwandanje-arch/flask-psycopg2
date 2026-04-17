@@ -94,7 +94,7 @@ class Car:
     def start (self):
         print(f"{self.brand},-{self.model} starts at 0km/h")
     def stop (self):
-        print(f"{self.brand},-{self.model} stops at 70km/h")
+        print(f"{self.brand},-{self.model} stops at 200km/h")
     def refuel (self):
         print(f"{self.brand},-{self.model} refuel before 20%!")
     def drive(self):
@@ -126,7 +126,7 @@ Car2.refuel()
 Car2.drive()
 Car2.display_car_info()
 
-Car3 = Car("Tesla","Model 3",'70 Kw/h','100%','201Km/h')
+Car3 = Car("Tesla","Model 3",'70 Kw/h','100%','180Km/h')
 print(type(Car3))
 print(Car3.brand)
 
@@ -136,7 +136,7 @@ Car3.refuel()
 Car3.drive()
 Car3.display_car_info()
 
-Car4 = Car("Toyota","Camry",'60 Litres','87 Octane(Regular)','190Km/h')
+Car4 = Car("Toyota","Camry",'60 Litres','87 Octane(Regular)','120Km/h')
 print(type(Car4))
 print(Car4.brand)
 
