@@ -78,71 +78,93 @@
 # account2.withdraw()
 # account2.display_info()
 
-from datetime import datetime
+# 1.Create a Car Class Have the following attributes brand - model - year -fuel_capcity - 
+# fuel_level -is_running(boolen value) Have the following methods as behaviour for your 
+# class: start() stop() refuel() drive() display_car_info()
+from datetime import date
 
-today = datetime.today().date()
-
-class Car:
-    def __init__(self,brand,model,fuel_capacity,fuel_level,is_running,year=today):
-        self.brand = brand
-        self.model = model
-        self.fuel_capacity = fuel_capacity
-        self.fuel_level = fuel_level
-        self.is_running = is_running
-        self.year = year
-
-    def start (self):
-        print(f"{self.brand},-{self.model} starts at 0km/h")
-    def stop (self):
-        print(f"{self.brand},-{self.model} stops at 200km/h")
-    def refuel (self):
-        print(f"{self.brand},-{self.model} refuel before 20%!")
-    def drive(self):
-        print(f"{self.brand},-{self.model} drive!")
-    def display_car_info(self):
-        print(f"{self.brand},-{self.model},-{self.fuel_capacity},-{self.fuel_level},is running at {self.is_running},-{self.year}")        
-
-
-today = datetime.today().date()
+today = date.today()
 print(today)
 
-Car1 = Car("Honda","Civic",'47 Litres','87 Octane(Regular)','90Km/h')
+class Car:
+    def __init__(self, brand, model, year, fuel_capacity, fuel_level):
+        self.brand = brand
+        self.model = model
+        self.year = year
+        self.fuel_capacity = fuel_capacity  
+        self.fuel_level = fuel_level      
+        self.is_running = False             
+
+    def start(self):
+        if self.is_running:
+            print(f"{self.brand} {self.model} is already running!")
+        else:
+            self.is_running = True
+            print(f"{self.brand} {self.model} has started.")
+
+    def stop(self):
+        if self.is_running:
+            self.is_running = False
+            print(f"{self.brand} {self.model} has stopped.")
+        else:
+            print(f"{self.brand} {self.model} is already stopped!")
+
+    def refuel(self, amount):
+        if self.fuel_level >= self.fuel_capacity:
+            print("Tank is already full! No need to refuel.")
+        elif self.fuel_level / self.fuel_capacity < 0.20:
+            self.fuel_level = min(self.fuel_level + amount, self.fuel_capacity)
+            print(f"Warning: Low fuel! Refuelled. Level now: {self.fuel_level}L")
+        else:
+            self.fuel_level = min(self.fuel_level + amount, self.fuel_capacity)
+            print(f"Refuelled. Fuel level now: {self.fuel_level}L")
+
+    def drive(self):
+        if not self.is_running:
+            print("Start the car first before driving!")
+        elif self.fuel_level <= 0:
+            print("No fuel! Please refuel before driving.")
+        else:
+            self.fuel_level -= 5
+            print(f"{self.brand} {self.model} is driving! Fuel left: {self.fuel_level}L")
+
+    def display_car_info(self):
+        status = "Running" if self.is_running else "Stopped"
+        print(f"- Car Info -")
+        print(f"Brand      : {self.brand}")
+        print(f"Model      : {self.model}")
+        print(f"Year       : {self.year}")
+        print(f"Fuel Cap   : {self.fuel_capacity}L")
+        print(f"Fuel Level : {self.fuel_level}L")
+        print(f"Status     : {status}")
+
+
+#  Car 1: Honda Civic 
+Car1 = Car("Honda", "Civic", 2022, 47, 30)
 print(type(Car1))
 print(Car1.brand)
-
 Car1.start()
 Car1.stop()
-Car1.refuel()
+Car1.refuel(10)
 Car1.drive()
 Car1.display_car_info()
 
-Car2 = Car("Nissan","Altima",'60 Litres','87 Octane(Regular)','110Km/h')
+# --- Car 2: Nissan Altima ---
+Car2 = Car("Nissan", "Altima", 2021, 60, 5)
 print(type(Car2))
 print(Car2.brand)
-
 Car2.start()
 Car2.stop()
-Car2.refuel()
+Car2.refuel(20)
 Car2.drive()
 Car2.display_car_info()
 
-Car3 = Car("Tesla","Model 3",'70 Kw/h','100%','180Km/h')
+# --- Car 3: Tesla Model 3 ---
+Car3 = Car("Tesla", "Model 3", 2023, 70, 70)
 print(type(Car3))
 print(Car3.brand)
-
 Car3.start()
 Car3.stop()
-Car3.refuel()
+Car3.refuel(10)
 Car3.drive()
 Car3.display_car_info()
-
-Car4 = Car("Toyota","Camry",'60 Litres','87 Octane(Regular)','120Km/h')
-print(type(Car4))
-print(Car4.brand)
-
-Car4.start()
-Car4.stop()
-Car4.refuel()
-Car4.drive()
-Car4.display_car_info()
-

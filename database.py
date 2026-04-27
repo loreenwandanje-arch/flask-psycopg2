@@ -1,22 +1,46 @@
+
 import psycopg2
 
-# Establish a database connection.
-conn = psycopg2.connect(host='localhost', port='5432',
-                        user='postgres', password='076912lor', dbname='myduka')
+def get_connection():
+    conn = psycopg2.connect(
+        host='localhost', 
+        port='5432',
+        user='postgres', 
+        password='076912lor', 
+        dbname='myduka'
+    )
+    return conn
 
-# object for db operations
-cur = conn.cursor()
+def get_products():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM products")
+    data = cur.fetchall()
+    conn.close()
+    return data
 
-# insert products to myduka db
-# use a parameter(product_details) to make it reusable
+def get_sales():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM sales")
+    data = cur.fetchall()
+    conn.close()
+    return data
 
+def get_stocks():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM stock")
+    data = cur.fetchall()
+    conn.close()
+    return data
 
 def insert_products(product_details):
-    # i used on confict do nothing to prevent duplicate data
-    cur.execute(
-        "INSERT INTO products (name, buying_price, selling_price) VALUES (%s, %s,%s)", product_details)
+    conn = get_connection() 
+    cur = conn.cursor()  
+    cur.execute("INSERT INTO products (name, buying_price, selling_price) VALUES (%s, %s, %s)", product_details)
     conn.commit()
-
+    conn.close()
 
 product1 = ('blackout curtains', 9600, 11000)
 product2 = ('drawstring curtains', 6400, 9500)
@@ -33,9 +57,13 @@ print("Products inserted")
 
 
 def insert_sales(sales_details):
+    conn = get_connection()  
+    cur = conn.cursor()     
     cur.execute(
-        "INSERT INTO sales (pid,quantity,created_at) VALUES (%s,%s,%s)", sales_details)
+        "INSERT INTO sales (pid, quantity, created_at) VALUES (%s, %s, %s)", sales_details
+    )
     conn.commit()
+    conn.close()
 
 
 sale1 = (1, 24, '10/1/2023')
@@ -52,20 +80,25 @@ print("sales inserted")
 
 
 def insert_stock(stock_details):
+    conn = get_connection()     
+    cur = conn.cursor() 
     cur.execute(
-        "INSERT INTO stock (pid,stock_quantity,created_at) VALUES (%s,%s,%s)", stock_details)
+        "INSERT INTO stock (pid, stock_quantity, created_at) VALUES (%s, %s, %s)", stock_details
+    )
     conn.commit()
+    conn.close()
 
+stock1 = (1, 50, '10/1/2023')
+stock2 = (2, 30, '11/2/2023')
+stock3 = (3, 20, '10/1/2023')
+stock4 = (4, 10, '06/1/2023')
 
-stock1 = (1, 24, '10/1/2023')
-stock2 = (2, 68, '11/2/2023')
-stock3 = (3, 5, '10/1/2023')
-stock4 = (4, 6, '06/1/2023')
-
+    
 insert_stock(stock1)
 insert_stock(stock2)
 insert_stock(stock3)
 insert_stock(stock4)
+
 
 print("stock inserted")
 
@@ -73,6 +106,8 @@ print("stock inserted")
 
 
 def insert_users(user_details):
+    conn = get_connection()     
+    cur = conn.cursor() 
     cur.execute(
         "INSERT INTO users (full_name,email,phone_number,password) VALUES (%s,%s,%s,%s) ON CONFLICT (email) DO NOTHING", user_details)
     conn.commit()
@@ -83,7 +118,7 @@ user2 = ('Miles Morales', 'spiderweb67@gmail.com', '0769125054', '12345678')
 user3 = ('James Hugh', 'hughgrant@gmail.com', '07569087623', 'treats45')
 user4 = ('Mary Glaze', 'glazedmaria5@gmail.com', '0774567890', 'mary1mary')
 
-# call the function/very important
+#call the function/very important
 insert_users(user1)
 insert_users(user2)
 insert_users(user3)
@@ -95,6 +130,8 @@ print("users inserted!")
 
 
 def sales_per_product():
+    conn = get_connection()     
+    cur = conn.cursor()
     cur.execute(
         "SELECT p.name,sum(sales.quantity) as total_sales FROM sales JOIN products as p ON sales.pid=p.id GROUP BY p.name ORDER BY total_sales"
     )
@@ -111,6 +148,8 @@ sales_per_product()
 
 
 def sales_per_day():
+    conn = get_connection()     
+    cur = conn.cursor()
     cur.execute(
         "SELECT sales.created_at,sum(sales.quantity) as total_sales FROM sales JOIN products as p ON sales.pid=p.id GROUP BY created_at ORDER BY total_sales"
     )
@@ -124,6 +163,8 @@ sales_per_product()
 # write a query to fetch profit per product:
 # profit=selling price - buying price
 def profit_per_product():
+    conn = get_connection()     
+    cur = conn.cursor()
     cur.execute("SELECT p.name,SUM((p.selling_price - p.buying_price) * sales.quantity)  AS profit  FROM products as p  JOIN sales ON sales.pid = p.id  GROUP BY p.name  ORDER BY profit ")
     products= cur.fetchall()
     print("profit per product:")
@@ -133,3 +174,4 @@ def profit_per_product():
 
 
 profit_per_product()
+

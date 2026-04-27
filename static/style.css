@@ -1,0 +1,19 @@
+.navbar {
+    background-color: rgb(110, 176, 16);
+    opacity: 0.95;
+    position: fixed;
+    z-index: 1000;
+}
+
+footer {
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+
+.modal {
+    position: fixed;
+    z-index: 2000;
+    /* higher than navbar */
+}

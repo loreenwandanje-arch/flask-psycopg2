@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Stocks</h1>
+  <div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add your Stock
+    </button>
+
+    <!-- Modal -->
+    <div>
+      <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Stocks</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="/add_stocks">
+                <div class="mb-3 ">
+                  <label for="exampleInputEmail1" class="form-label">Product_id</label>
+                  <input type="number" name="p_name" class="form-control" id="exampleInputPassword1">
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Stock_Quantity</label>
+                    <input type="number" name="b_price" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Created_at</label>
+                    <input type="datetime-local" name="s_price" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Stock</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <table id="example" class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>pid</th>
+        <th>Stock_Quantity</th>
+        <th>Created_at</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stock in stocks_data %}
+      <tr>
+        <td>{{stock[0]}}</td>
+        <td>{{stock[1]}}</td>
+        <td>{{stock[2]}}</td>
+        <td>{{stock[3]}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}
