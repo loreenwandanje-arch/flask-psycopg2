@@ -60,16 +60,16 @@ def insert_sales(sales_details):
     conn = get_connection()  
     cur = conn.cursor()     
     cur.execute(
-        "INSERT INTO sales (pid, quantity, created_at) VALUES (%s, %s, %s)", sales_details
+        "INSERT INTO sales (pid, quantity) VALUES (%s, %s)", sales_details
     )
     conn.commit()
     conn.close()
 
 
-sale1 = (1, 24, '10/1/2023')
-sale2 = (2, 68, '11/2/2023')
-sale3 = (3, 5, '10/1/2023')
-sale4 = (4, 6, '06/1/2023')
+sale1 = (1, 24)
+sale2 = (2, 68)
+sale3 = (3, 5)
+sale4 = (4, 6)
 
 insert_sales(sale1)
 insert_sales(sale2)
@@ -83,15 +83,15 @@ def insert_stock(stock_details):
     conn = get_connection()     
     cur = conn.cursor() 
     cur.execute(
-        "INSERT INTO stock (pid, stock_quantity, created_at) VALUES (%s, %s, %s)", stock_details
+        "INSERT INTO stock (pid, stock_quantity) VALUES (%s, %s)", stock_details
     )
     conn.commit()
     conn.close()
 
-stock1 = (1, 50, '10/1/2023')
-stock2 = (2, 30, '11/2/2023')
-stock3 = (3, 20, '10/1/2023')
-stock4 = (4, 10, '06/1/2023')
+stock1 = (1, 50)
+stock2 = (2, 30)
+stock3 = (3, 20)
+stock4 = (4, 10)
 
     
 insert_stock(stock1)

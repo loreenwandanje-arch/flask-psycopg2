@@ -21,15 +21,15 @@
             <div class="modal-body">
               <form method="post" action="/add_stocks">
                 <div class="mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">Product_id</label>
-                  <input type="number" name="p_name" class="form-control" id="exampleInputPassword1">
+                  <select class="form-select" name='pid' aria-label="Default select example">
+                    <option selected>Select Product</option>
+                    {% for product in product_data %}
+                    <option value="{{product[0]}}">{{product[1]}}</option>
+                    {% endfor %}
+                  </select>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Stock_Quantity</label>
-                    <input type="number" name="b_price" class="form-control" id="exampleInputPassword1">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Created_at</label>
-                    <input type="datetime-local" name="s_price" class="form-control" id="exampleInputPassword1">
+                    <input type="number" name="quantity" class="form-control" id="exampleInputPassword1">
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

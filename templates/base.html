@@ -65,6 +65,18 @@
                     </div>
                 </nav>
             </div>
+            <div>
+                {% with messages= get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissible" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
 
 
             {%block content%}
@@ -80,8 +92,8 @@
                         <div class="mb-3">
                             <a href="https://www.facebook.com/" class="text-white me-3"><i class="fa-brands fa-facebook"
                                     style="color: rgb(46, 18, 229);"></i></a>
-                            <a href="https://www.instagram.com/?hl=en" class="text-white me-3"><i class="fa-brands fa-instagram"
-                                    style="color: rgb(98, 20, 64);"></i></a>
+                            <a href="https://www.instagram.com/?hl=en" class="text-white me-3"><i
+                                    class="fa-brands fa-instagram" style="color: rgb(98, 20, 64);"></i></a>
                             <a href="https://x.com/" class="text-white me-3"><i class="fa-brands fa-twitter"
                                     style="color: rgb(116, 192, 252);"></i></a>
                             <a href="https://wa.me/254758770738" class="text-white me-3"><i
