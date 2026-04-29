@@ -175,3 +175,8 @@ def profit_per_product():
 
 profit_per_product()
 
+
+def check_user_exists(email):
+    cur.execute("select * from user where user.email = %s",(email,))
+    user_data = cur.fetchone()
+    return user_data

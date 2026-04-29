@@ -1,4 +1,4 @@
-from database import get_products, get_sales, get_stocks, insert_products, insert_sales, insert_stock
+from database import get_products, get_sales, get_stocks, insert_products, insert_sales, insert_stock,available_stock
 import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash
 
