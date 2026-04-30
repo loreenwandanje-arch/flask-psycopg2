@@ -1,4 +1,4 @@
-from database import get_products, get_sales, get_stocks, insert_products, insert_sales, insert_stock,available_stock
+from database import get_products, get_sales, get_stocks, insert_products, insert_sales, insert_stock
 import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash
 
@@ -81,5 +81,5 @@ def login():
     return render_template('login.html')
 
 
-# This starts the Flask server so your app is live and listening for visitors.
+# run the program
 app.run(debug=True)
