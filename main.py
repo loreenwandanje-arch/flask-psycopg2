@@ -114,28 +114,36 @@ def register():
         else:
              flash("User Not Inserted,Try again later",'danger')
     return render_template('register.html')
-
-
-@app.route('/login', methods=['GET', 'POST'])
+        
+@app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        
+
         existing_user = check_user_exists(email)
-        
-        if existing_user:
-            # check password matches
-            if bcrypt.check_password_hash(existing_user[3], password):
+        if not existing_user:
+            flash("User doesn't exist,please register",'danger')
+        else:
+            if bcrypt.check_password_hash(existing_user[-1],password):
                 session['email'] = email
-                flash("Login successful!", 'success')
+                flash("Login successful",'success')
                 return redirect(url_for('dashboard'))
             else:
-                flash("Wrong password!", 'danger')
-        else:
-            flash("User not found!", 'danger')
+                flash("Password incorrect",'danger')
     
     return render_template('login.html')
 
-# run the program
-app.run(debug=True)
+
+# #List Comprehension
+# # TASK 1-Create a list of squares from 1 to 10
+squares = [x**2 for x in range(10)]
+print(squares)
+
+# TASK 2-words= ["apple","mango","kiwi","egg","cherry","bread","me"]-create a new list of words that have length >=5
+words= ["apple","mango","kiwi","egg","cherry","bread","me"]
+new_words = [i for i in words if len(i) >=5]
+print(new_words)
+
+# # run the program
+# app.run(debug=True)
