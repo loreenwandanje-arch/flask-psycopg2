@@ -145,5 +145,11 @@ words= ["apple","mango","kiwi","egg","cherry","bread","me"]
 new_words = [i for i in words if len(i) >=5]
 print(new_words)
 
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    flash("User logged out successfully","success")
+    return redirect(url_for('login'))
+
  # run the program
 app.run(debug=True)
