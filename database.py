@@ -104,28 +104,6 @@ print("stock inserted")
 
 # insert users to myduka
 
-
-def insert_users(user_details):
-    conn = get_connection()     
-    cur = conn.cursor() 
-    cur.execute(
-        "INSERT INTO users (full_name,email,phone_number,password) VALUES (%s,%s,%s,%s) ON CONFLICT (email) DO NOTHING", user_details)
-    conn.commit()
-
-
-user1 = ('Jamie Taka', 'jamietake24@gmail.com', '0712345678', '000Takejam')
-user2 = ('Miles Morales', 'spiderweb67@gmail.com', '0769125054', '12345678')
-user3 = ('James Hugh', 'hughgrant@gmail.com', '07569087623', 'treats45')
-user4 = ('Mary Glaze', 'glazedmaria5@gmail.com', '0774567890', 'mary1mary')
-
-#call the function/very important
-insert_users(user1)
-insert_users(user2)
-insert_users(user3)
-insert_users(user4)
-
-print("users inserted!")
-
 # write a query to fetch sales per product:
 
 
@@ -175,8 +153,17 @@ def profit_per_product():
 
 profit_per_product()
 
+def insert_user(user_details):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO users (full_name, email, phone_number, password) VALUES (%s, %s, %s, %s)", user_details)
+    conn.commit()
+    conn.close()
 
 def check_user_exists(email):
-    cur.execute("select * from user where user.email = %s",(email,))
+    conn = get_connection()  
+    cur = conn.cursor()      
+    cur.execute("SELECT * FROM users WHERE users.email = %s", (email,))
     user_data = cur.fetchone()
+    conn.close()             
     return user_data

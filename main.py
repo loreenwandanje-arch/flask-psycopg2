@@ -1,16 +1,32 @@
-from database import get_products, get_sales, get_stocks, insert_products, insert_sales, insert_stock
+from database import get_products, get_sales, get_stocks, insert_products, insert_user,insert_sales, insert_stock,check_user_exists
 import datetime
-from flask import Flask, render_template, redirect, request, url_for, flash
-
+from flask import Flask, render_template, redirect, request, url_for, flash,session
+from flask_bcrypt import Bcrypt
+from functools import wraps
+# creating a flask instance
 app = Flask(__name__)
+
+# bcrypt instance
+bcrypt = Bcrypt(app)
+
 app.secret_key = 'myduka2026'
 
+# homepage route
 @app.route('/')  # index route,decorater function
 def home():  # view function
     return render_template('index.html')
 
+def login_required(f):
+    @wraps(f)
+    def protected(*args,**kwargs):
+        if 'email' not in session:
+            return redirect(url_for('login'))
+        return f(*args,**kwargs)
+    return protected
 
+# products route
 @app.route('/products')
+@login_required
 def products():
     products_data = get_products()
     return render_template('products.html', products_data=products_data)
@@ -29,6 +45,7 @@ def add_product():
 
 
 @app.route('/sales')
+@login_required
 def sales():
     sales_data = get_sales()
     products = get_products()
@@ -41,13 +58,19 @@ def add_sale():
     if request.method == 'POST':
         product_id = request.form['pid']
         quantity = request.form['quantity']
+       
+        check_stock = available_stock(product_id)
+        if check_stock < float(quantity):
+            flash("Insufficient stock,can't complete sale",'danger')
+            return redirect(url_for('sales'))
         new_sale = (product_id,quantity)
         insert_sales(new_sale)
-        print("Sale made successfully",'success')
+        flash("Sale added successfully",'success')
     return redirect(url_for('sales'))
 
 
 @app.route('/stocks')
+@login_required
 def stocks():
     stock_data = get_stocks()
     product_data = get_products()
@@ -67,19 +90,52 @@ def add_stocks():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
+    if 'email' not in session:
+        return redirect(url_for('login'))
     return render_template('dashboard.html')
 
 
-@app.route('/register')
+@app.route('/register',methods=['GET','POST'])
 def register():
+    if request.method == 'POST':
+        full_name = request.form ['name']
+        email = request.form ['email']
+        phone_number = request.form ['phone']
+        password = request.form ['password']
+
+        existing_user = check_user_exists(email)
+        if not existing_user :
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_user =(full_name,email,phone_number,hashed_password)
+            insert_user(new_user)
+            flash("User Inserted Successfully",'success')
+        else:
+             flash("User Not Inserted,Try again later",'danger')
     return render_template('register.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        
+        existing_user = check_user_exists(email)
+        
+        if existing_user:
+            # check password matches
+            if bcrypt.check_password_hash(existing_user[3], password):
+                session['email'] = email
+                flash("Login successful!", 'success')
+                return redirect(url_for('dashboard'))
+            else:
+                flash("Wrong password!", 'danger')
+        else:
+            flash("User not found!", 'danger')
+    
     return render_template('login.html')
-
 
 # run the program
 app.run(debug=True)
