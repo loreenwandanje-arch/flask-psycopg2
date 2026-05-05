@@ -145,5 +145,5 @@ words= ["apple","mango","kiwi","egg","cherry","bread","me"]
 new_words = [i for i in words if len(i) >=5]
 print(new_words)
 
-# # run the program
-# app.run(debug=True)
+ # run the program
+app.run(debug=True)
