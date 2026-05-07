@@ -1,4 +1,4 @@
-from database import get_products, get_sales, get_stocks, insert_products, insert_user,insert_sales, insert_stock,check_user_exists
+from database import get_products, get_sales, get_stocks, insert_products, insert_user,insert_sales, insert_stock,check_user_exists,sales_per_day,sales_per_product,profit_per_product,profit_per_day
 import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash,session
 from flask_bcrypt import Bcrypt
@@ -92,9 +92,21 @@ def add_stocks():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    if 'email' not in session:
-        return redirect(url_for('login'))
-    return render_template('dashboard.html')
+    sales_product = sales_per_product()
+    sales_day = sales_per_day()
+    profit_product =profit_per_product()
+    profit_day =profit_per_day()
+
+# product data
+    product_names = [ i[0] for i in sales_product ]
+    prod_sales = [ float(i[1]) for i in sales_product]
+    prof_product = [ float(i[1]) for i in profit_product]
+
+# day data
+    day = [str(i[0]) for i in sales_day ]
+    prof_day = [ float(i[1]) for i in profit_day ]
+    day_sales = [ float(i[1]) for i in sales_day ]
+    return render_template('dashboard.html',product_names=product_names,prod_sales=prod_sales,prof_product=prof_product,day=day,prof_day=prof_day,day_sales=day_sales)
 
 
 @app.route('/register',methods=['GET','POST'])

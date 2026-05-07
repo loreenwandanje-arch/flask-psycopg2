@@ -114,11 +114,11 @@ def sales_per_product():
         "SELECT p.name,sum(sales.quantity) as total_sales FROM sales JOIN products as p ON sales.pid=p.id GROUP BY p.name ORDER BY total_sales"
     )
     sales = cur.fetchall()
+    
 
     for row in sales:
         print(f"Product: {row[0]}, total_sales: {row[1]}")
-       
-
+        return sales
 
 sales_per_product()
 
@@ -134,9 +134,12 @@ def sales_per_day():
     sales = cur.fetchall()
     for row in sales:
         print(f"Product: {row[0]},  total_sales: {row[1]}")
+        return sales
 
 
-sales_per_product()
+sales_per_day()
+
+
 
 # write a query to fetch profit per product:
 # profit=selling price - buying price
@@ -148,10 +151,34 @@ def profit_per_product():
     print("profit per product:")
     for row in products:
         print(f"Product: {row[0]}, Profit: {row[1]}")
-
-
+        return products
+    
 
 profit_per_product()
+# write a query to fetch profit per day
+def profit_per_day():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT sales.created_at,SUM((p.selling_price-p.buying_price)*sales.quantity) AS total_profit FROM sales JOIN products p ON sales.pid =p.id GROUP BY sales.created_at ORDER BY sales.created_at ASC")
+    results = cur.fetchall()
+    for row in results:
+        print(f"Product: {row[0]}, Profit: {row[1]}")
+        return results
+    
+profit_per_day()
+
+# def check_sales_columns():
+#     conn = get_connection()
+#     cur = conn.cursor()
+#     cur.execute("""
+#         SELECT column_name 
+#         FROM information_schema.columns 
+#         WHERE table_name = 'sales'
+#     """)
+#     print(cur.fetchall())
+
+# check_sales_columns()
+              
 
 def insert_user(user_details):
     conn = get_connection()
