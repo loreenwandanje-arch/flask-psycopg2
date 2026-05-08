@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <!-- datatables css links -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
@@ -27,41 +27,45 @@
         <div class="container">
 
             <div>
-                <nav class="navbar navbar-expand-lg bg-body-tertiary  ">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">MyDuka</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="/">
+                            <span class="brand-icon">🛍️</span>
+                            <span class="brand-text">My<span style="color:#00d4aa;">Duka</span></span>
+                        </a>
+
+                        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                            <span class="toggler-bar"></span>
+                            <span class="toggler-bar"></span>
+                            <span class="toggler-bar"></span>
                         </button>
-                        <div class="collapse navbar-collapse p-3 mb-2 bg-success text-white justify-content-end"
-                            id="navbarSupportedContent">
-                            <ul class="navbar-nav  mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/products">products</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/sales">Sales</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/stocks">Stock</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/dashboard">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/login">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/register">Register</a>
-                                </li>
 
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link" href="/">🏠 Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link" href="/products">📦 Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link" href="/sales">💰 Sales</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link" href="/stocks">🏭 Stock</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link custom-nav-link" href="/dashboard">📊 Dashboard</a>
+                                </li>
+                                <li class="nav-item ms-lg-2">
+                                    <a class="nav-link nav-btn-login" href="/login">🔐 Login</a>
+                                </li>
+                                <li class="nav-item ms-lg-2">
+                                    <a class="nav-link nav-btn-register" href="/register">📝 Register</a>
+                                </li>
                             </ul>
-
                         </div>
                     </div>
                 </nav>
@@ -86,36 +90,76 @@
             {%endblock%}
 
             <div>
-                <footer class="bg-dark text-white">
-                    <div class="container text-center">
+                <footer style="background: #1a1a2e; color: #fff; padding: 60px 0 0 0;">
+                    <div class="container">
+                        <div class="row">
 
-                        <!-- social media-->
-                        <div class="mb-3">
-                            <a href="https://www.facebook.com/" class="text-white me-3"><i class="fa-brands fa-facebook"
-                                    style="color: rgb(46, 18, 229);"></i></a>
-                            <a href="https://www.instagram.com/?hl=en" class="text-white me-3"><i
-                                    class="fa-brands fa-instagram" style="color: rgb(98, 20, 64);"></i></a>
-                            <a href="https://x.com/" class="text-white me-3"><i class="fa-brands fa-twitter"
-                                    style="color: rgb(116, 192, 252);"></i></a>
-                            <a href="https://wa.me/254758770738" class="text-white me-3"><i
-                                    class="fa-brands fa-whatsapp" style="color: rgb(23, 183, 31);"></i></a>
+                            <!-- Brand Column -->
+                            <div class="col-md-4 mb-4">
+                                <h4 style="color: #00d4aa; font-weight: 700; font-size: 1.5rem;">
+                                    🛍️ MyDuka
+                                </h4>
+                                <p style="color: #aaa; line-height: 1.8; margin-top: 10px;">
+                                    Run your shop smarter with real-time stock management,
+                                    sales tracking, and a powerful business dashboard.
+                                </p>
+                                <!-- Social Icons -->
+                                <div style="margin-top: 15px;">
+                                    <a href="https://www.facebook.com/" target="_blank" class="footer-social"
+                                        style="background:#1877f2;">
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/" target="_blank" class="footer-social"
+                                        style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                    <a href="https://x.com/" target="_blank" class="footer-social"
+                                        style="background:#000;">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                    <a href="https://wa.me/254758770738" target="_blank" class="footer-social"
+                                        style="background:#25d366;">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
 
-                        </div>
+                            <!-- Quick Links Column -->
+                            <div class="col-md-4 mb-4">
+                                <h5 style="color: #00d4aa; font-weight: 700; margin-bottom: 20px;">Quick Links</h5>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/" class="footer-link">🏠 Home</a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/products" class="footer-link">📦 Products</a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/sales" class="footer-link">💰 Sales</a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/stock" class="footer-link">🏭 Stock</a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/login" class="footer-link">🔐 Owner Login</a>
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <a href="/register" class="footer-link">📝 Register</a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <!-- Links -->
-                        <div class="mb-3">
-                            <a href="/" class="text-white text-decoration-none me-3">Home</a>
-                            <a href="/products" class="text-white text-decoration-none me-3">Products</a>
-                            <a href="/" class="text-white text-decoration-none me-3">About</a>
-                            <a href="/register" class="text-white text-decoration-none me-3">Contact Us</a>
-                            <a href="/login" class="text-white text-decoration-none">Owner Login</a>
-                        </div>
-
-                        <!-- Copyright -->
-                        <hr class="border-secondary">
-                        <p class="text-white-50 mb-0" style="font-size:13px;">© 2026 MyDuka. All rights reserved.</p>
-
-                    </div>
+                            <!-- Contact Column -->
+                            <div class="col-md-4 mb-4">
+                                <h5 style="color: #00d4aa; font-weight: 700; margin-bottom: 20px;">Contact Us</h5>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 12px; color: #aaa;">
+                                        <i class="fa fa-map-marker-alt" style="color:#00d4aa; margin-right:8px;"></i>
+                                        Nairobi, Kenya
+                                    </li>
+                                    <li style="margin-bottom: 12px;">
+                                        <a href="tel:+254758770738" class="footer-link">
+                                            <i class="fa fa-phone" style="color:#00d4aa; margin-right:8px;"></i>
                 </footer>
             </div>
 

@@ -1,85 +1,171 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-  <h1>Dashboard</h1>
+<section class="dashboard-section">
+  <div class="container py-5">
 
+    <!-- Header -->
+    <div class="dashboard-header mb-5">
+      <span class="section-badge">Analytics</span>
+      <h1 class="section-title">📊 MyDuka Analytics</h1>
+      <p class="section-subtitle">Track your sales and stock performance</p>
+    </div>
 
-  <div>
-    <canvas id="line-chart" width="800" height="450"></canvas>
+    <!-- Line Chart Card -->
+    <div class="chart-card mb-4">
+      <div class="chart-card-header">
+        <h5 class="chart-title">💰 Sales Overview</h5>
+        <span class="chart-subtitle">In KSh · Jan – Oct 2026</span>
+      </div>
+      <div class="chart-body">
+        <canvas id="line-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Bar Chart Card -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h5 class="chart-title">📦 Stock Levels by Product</h5>
+        <span class="chart-subtitle">Units available · Current stock</span>
+      </div>
+      <div class="chart-body">
+        <canvas id="bar-chart-grouped"></canvas>
+      </div>
+    </div>
+
   </div>
-  <div>
-    <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
-  </div>
+</section>
 
-</div>
 <script>
-  // line chart
+  const gridColor = 'rgba(255,255,255,0.05)';
+  const tickColor = '#aaa';
+  const legendColor = '#ccc';
+
+  const sharedScales = {
+    x: { ticks: { color: tickColor }, grid: { color: gridColor } },
+    y: { ticks: { color: tickColor }, grid: { color: gridColor } }
+  };
+
+  const sharedLegend = {
+    labels: { color: legendColor, padding: 20, usePointStyle: true, pointStyleWidth: 10 }
+  };
+
+  const sharedTooltip = {
+    backgroundColor: '#1a1a2e',
+    borderColor: '#00d4aa',
+    borderWidth: 1,
+    titleColor: '#00d4aa',
+    bodyColor: '#ccc',
+    padding: 12
+  };
+
+  // ── LINE CHART ──
   new Chart(document.getElementById("line-chart"), {
     type: 'line',
     data: {
-      labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
-      datasets: [{
-        data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-        label: "Africa",
-        borderColor: "#3e95cd",
-        fill: false
-      }, {
-        data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-        label: "Asia",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, {
-        data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-        label: "Europe",
-        borderColor: "#3cba9f",
-        fill: false
-      }, {
-        data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-        label: "Latin America",
-        borderColor: "#e8c3b9",
-        fill: false
-      }, {
-        data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-        label: "North America",
-        borderColor: "#c45850",
-        fill: false
-      }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'World population per region (in millions)'
-      }
-    }
-  });
-
-
-// bar chart
-
-new Chart(document.getElementById("bar-chart-grouped"), {
-    type: 'bar',
-    data: {
-      labels: ["1900", "1950", "1999", "2050"],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
       datasets: [
         {
-          label: "Africa",
-          backgroundColor: "#3e95cd",
-          data: [133,221,783,2478]
-        }, {
-          label: "Europe",
-          backgroundColor: "#8e5ea2",
-          data: [408,547,675,734]
+          data: [12000, 19000, 15000, 25000, 22000, 30000, 28000, 35000, 40000, 45000],
+          label: "Blackout Curtains",
+          borderColor: "#00d4aa",
+          backgroundColor: "rgba(0,212,170,0.08)",
+          borderWidth: 2.5,
+          pointBackgroundColor: "#00d4aa",
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          data: [8000, 12000, 10000, 18000, 16000, 22000, 20000, 27000, 30000, 33000],
+          label: "Drawstring Curtains",
+          borderColor: "#8e5ea2",
+          backgroundColor: "rgba(142,94,162,0.08)",
+          borderWidth: 2.5,
+          pointBackgroundColor: "#8e5ea2",
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          data: [5000, 7000, 6000, 9000, 8000, 11000, 10000, 13000, 15000, 17000],
+          label: "Lace Curtains",
+          borderColor: "#ff3bb4",
+          backgroundColor: "rgba(255,59,180,0.08)",
+          borderWidth: 2.5,
+          pointBackgroundColor: "#ff3bb4",
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          tension: 0.4,
+          fill: true
+        },
+        {
+          data: [6000, 9000, 7000, 11000, 10000, 14000, 13000, 16000, 19000, 21000],
+          label: "Kids Curtains",
+          borderColor: "#ffd43b",
+          backgroundColor: "rgba(255,212,59,0.08)",
+          borderWidth: 2.5,
+          pointBackgroundColor: "#ffd43b",
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          tension: 0.4,
+          fill: true
         }
       ]
     },
     options: {
-      title: {
-        display: true,
-        text: 'Population growth (millions)'
-      }
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: sharedLegend,
+        title: { display: false },
+        tooltip: sharedTooltip
+      },
+      scales: sharedScales
     }
-});
+  });
+
+  // ── BAR CHART ──
+  new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: ["Blackout Curtains", "Drawstring Curtains", "Lace Curtains", "Kids Curtains"],
+      datasets: [
+        {
+          label: "In Stock",
+          backgroundColor: "rgba(0,212,170,0.8)",
+          hoverBackgroundColor: "#00d4aa",
+          borderRadius: 6,
+          data: [45, 30, 60, 25]
+        },
+        {
+          label: "Sold This Month",
+          backgroundColor: "rgba(255,59,180,0.8)",
+          hoverBackgroundColor: "#ff3bb4",
+          borderRadius: 6,
+          data: [20, 15, 35, 10]
+        },
+        {
+          label: "Low Stock Alert",
+          backgroundColor: "rgba(255,212,59,0.8)",
+          hoverBackgroundColor: "#ffd43b",
+          borderRadius: 6,
+          data: [5, 8, 3, 12]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: sharedLegend,
+        title: { display: false },
+        tooltip: sharedTooltip
+      },
+      scales: sharedScales
+    }
+  });
 </script>
 {% endblock %}

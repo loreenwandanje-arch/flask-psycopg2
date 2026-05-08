@@ -1,12 +1,11 @@
-
 import psycopg2
 
 def get_connection():
     conn = psycopg2.connect(
-        host='localhost', 
+        host='localhost',
         port='5432',
-        user='postgres', 
-        password='076912lor', 
+        user='postgres',
+        password='076912lor',
         dbname='myduka'
     )
     return conn
@@ -36,149 +35,25 @@ def get_stocks():
     return data
 
 def insert_products(product_details):
-    conn = get_connection() 
-    cur = conn.cursor()  
+    conn = get_connection()
+    cur = conn.cursor()
     cur.execute("INSERT INTO products (name, buying_price, selling_price) VALUES (%s, %s, %s)", product_details)
     conn.commit()
     conn.close()
 
-product1 = ('blackout curtains', 9600, 11000)
-product2 = ('drawstring curtains', 6400, 9500)
-product3 = ('lace curtains', 1500, 5000)
-product4 = ('kid curtains', 9600, 11000)
-
-# call the function Loreen,quite an important part of this!!
-insert_products(product1)
-insert_products(product2)
-insert_products(product3)
-insert_products(product4)
-
-print("Products inserted")
-
-
 def insert_sales(sales_details):
-    conn = get_connection()  
-    cur = conn.cursor()     
-    cur.execute(
-        "INSERT INTO sales (pid, quantity) VALUES (%s, %s)", sales_details
-    )
-    conn.commit()
-    conn.close()
-
-
-sale1 = (1, 24)
-sale2 = (2, 68)
-sale3 = (3, 5)
-sale4 = (4, 6)
-
-insert_sales(sale1)
-insert_sales(sale2)
-insert_sales(sale3)
-insert_sales(sale4)
-
-print("sales inserted")
-
-
-def insert_stock(stock_details):
-    conn = get_connection()     
-    cur = conn.cursor() 
-    cur.execute(
-        "INSERT INTO stock (pid, stock_quantity) VALUES (%s, %s)", stock_details
-    )
-    conn.commit()
-    conn.close()
-
-stock1 = (1, 50)
-stock2 = (2, 30)
-stock3 = (3, 20)
-stock4 = (4, 10)
-
-    
-insert_stock(stock1)
-insert_stock(stock2)
-insert_stock(stock3)
-insert_stock(stock4)
-
-
-print("stock inserted")
-
-# insert users to myduka
-
-# write a query to fetch sales per product:
-
-
-def sales_per_product():
-    conn = get_connection()     
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT p.name,sum(sales.quantity) as total_sales FROM sales JOIN products as p ON sales.pid=p.id GROUP BY p.name ORDER BY total_sales"
-    )
-    sales = cur.fetchall()
-    
-
-    for row in sales:
-        print(f"Product: {row[0]}, total_sales: {row[1]}")
-        return sales
-
-sales_per_product()
-
-# write a query to fetch sales per day:
-
-
-def sales_per_day():
-    conn = get_connection()     
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT sales.created_at,sum(sales.quantity) as total_sales FROM sales JOIN products as p ON sales.pid=p.id GROUP BY created_at ORDER BY total_sales"
-    )
-    sales = cur.fetchall()
-    for row in sales:
-        print(f"Product: {row[0]},  total_sales: {row[1]}")
-        return sales
-
-
-sales_per_day()
-
-
-
-# write a query to fetch profit per product:
-# profit=selling price - buying price
-def profit_per_product():
-    conn = get_connection()     
-    cur = conn.cursor()
-    cur.execute("SELECT p.name,SUM((p.selling_price - p.buying_price) * sales.quantity)  AS profit  FROM products as p  JOIN sales ON sales.pid = p.id  GROUP BY p.name  ORDER BY profit ")
-    products= cur.fetchall()
-    print("profit per product:")
-    for row in products:
-        print(f"Product: {row[0]}, Profit: {row[1]}")
-        return products
-    
-
-profit_per_product()
-# write a query to fetch profit per day
-def profit_per_day():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT sales.created_at,SUM((p.selling_price-p.buying_price)*sales.quantity) AS total_profit FROM sales JOIN products p ON sales.pid =p.id GROUP BY sales.created_at ORDER BY sales.created_at ASC")
-    results = cur.fetchall()
-    for row in results:
-        print(f"Product: {row[0]}, Profit: {row[1]}")
-        return results
-    
-profit_per_day()
+    cur.execute("INSERT INTO sales (pid, quantity) VALUES (%s, %s)", sales_details)
+    conn.commit()
+    conn.close()
 
-# def check_sales_columns():
-#     conn = get_connection()
-#     cur = conn.cursor()
-#     cur.execute("""
-#         SELECT column_name 
-#         FROM information_schema.columns 
-#         WHERE table_name = 'sales'
-#     """)
-#     print(cur.fetchall())
-
-# check_sales_columns()
-              
+def insert_stock(stock_details):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO stock (pid, stock_quantity) VALUES (%s, %s)", stock_details)
+    conn.commit()
+    conn.close()
 
 def insert_user(user_details):
     conn = get_connection()
@@ -188,9 +63,65 @@ def insert_user(user_details):
     conn.close()
 
 def check_user_exists(email):
-    conn = get_connection()  
-    cur = conn.cursor()      
+    conn = get_connection()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM users WHERE users.email = %s", (email,))
     user_data = cur.fetchone()
-    conn.close()             
+    conn.close()
     return user_data
+
+def sales_per_product():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT p.name, SUM(sales.quantity) AS total_sales 
+        FROM sales 
+        JOIN products AS p ON sales.pid = p.id 
+        GROUP BY p.name 
+        ORDER BY total_sales
+    """)
+    sales = cur.fetchall()
+    conn.close()
+    return sales
+
+def sales_per_day():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT sales.created_at, SUM(sales.quantity) AS total_sales 
+        FROM sales 
+        JOIN products AS p ON sales.pid = p.id 
+        GROUP BY created_at 
+        ORDER BY total_sales
+    """)
+    sales = cur.fetchall()
+    conn.close()
+    return sales
+
+def profit_per_product():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT p.name, SUM((p.selling_price - p.buying_price) * sales.quantity) AS profit 
+        FROM products AS p 
+        JOIN sales ON sales.pid = p.id 
+        GROUP BY p.name 
+        ORDER BY profit
+    """)
+    products = cur.fetchall()
+    conn.close()
+    return products
+
+def profit_per_day():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT sales.created_at, SUM((p.selling_price - p.buying_price) * sales.quantity) AS total_profit 
+        FROM sales 
+        JOIN products p ON sales.pid = p.id 
+        GROUP BY sales.created_at 
+        ORDER BY sales.created_at ASC
+    """)
+    results = cur.fetchall()
+    conn.close()
+    return results

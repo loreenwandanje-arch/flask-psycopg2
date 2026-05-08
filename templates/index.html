@@ -1,157 +1,218 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- why would someone use your product? -->
- <!-- what is your product about? -->
-<!-- HERO SECTION -->
-<section class="bg-dark text-white py-5">
-    <div class="container text-center">
-        <h1 class="display-4 fw-bold">Run Your Shop Smarter<i class="fa-solid fa-chart-line"
-                style="color: rgb(255, 59, 180);"></i></h1>
-        <p class="lead text-muted">Track sales, manage stock and grow your business — all in one place.</p>
-        <a href="/register" class="btn btn-primary btn-lg me-2">Get Started</a>
-        <a href="/products" class="btn btn-outline-light btn-lg">View Products</a>
+
+<!-- ══ HERO SECTION ══ -->
+<section class="hero-section">
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-content text-center">
+        <div class="hero-badge">🇰🇪 Built for Kenyan Businesses</div>
+        <h1 class="hero-title">
+            Run Your Shop <span class="hero-highlight">Smarter</span>
+            <i class="fa-solid fa-chart-line hero-icon"></i>
+        </h1>
+        <p class="hero-subtitle">
+            Track sales, manage stock and grow your business — all in one place.
+        </p>
+        <div class="hero-buttons">
+            <a href="/register" class="btn-hero-primary">
+                🚀 Get Started Free
+            </a>
+            <a href="/products" class="btn-hero-secondary">
+                📦 View Products
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Shops</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-number">10K+</span>
+                <span class="stat-label">Sales Tracked</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- why choose myduka? -->
-<div class="py-5">
+<!-- ══ WHY MYDUKA ══ -->
+<section class="why-section py-5">
     <div class="container">
-        <h2 class="text-center fw-bold mb-4">Why MyDuka?</h2>
+        <div class="section-header text-center mb-5">
+            <span class="section-badge">Why Choose Us</span>
+            <h2 class="section-title">Why MyDuka?</h2>
+            <p class="section-subtitle">Everything you need to run a successful shop in Kenya</p>
+        </div>
         <div class="row g-4">
-
             <div class="col-md-4">
-                <div class="card h-100 text-center p-3 border-0 shadow-sm">
-                    <div class="display-5 mb-3"><i class="fa-solid fa-boxes-stacked"
-                            style="color: rgb(255, 212, 59);"></i></div>
-                    <h5 class="fw-bold">Stock Management</h5>
-                    <p class="text-muted">Always know what's in stock and get alerts before you run out. No more
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(255,212,59,0.15);">
+                        <i class="fa-solid fa-boxes-stacked" style="color: rgb(255,212,59);"></i>
+                    </div>
+                    <h5 class="feature-title">Stock Management</h5>
+                    <p class="feature-text">Always know what's in stock and get alerts before you run out. No more
                         surprises.</p>
                 </div>
             </div>
-
             <div class="col-md-4">
-                <div class="card h-100 text-center p-3 border-0 shadow-sm">
-                    <div class="display-5 mb-3"><i class="fa-solid fa-sack-dollar"
-                            style="color: rgb(255, 59, 180);"></i></div>
-                    <h5 class="fw-bold">Sales Tracking</h5>
-                    <p class="text-muted">Every sale recorded automatically. See exactly how much you made today, this
+                <div class="feature-card featured">
+                    <div class="feature-icon" style="background: rgba(0,212,170,0.15);">
+                        <i class="fa-solid fa-sack-dollar" style="color: #00d4aa;"></i>
+                    </div>
+                    <h5 class="feature-title">Sales Tracking</h5>
+                    <p class="feature-text">Every sale recorded automatically. See exactly how much you made today, this
                         week, this month.</p>
                 </div>
             </div>
-
             <div class="col-md-4">
-                <div class="card h-100 text-center p-3 border-0 shadow-sm">
-                    <div class="display-5 mb-3"><i class="fa-solid fa-chart-simple"
-                            style="color: rgb(255, 59, 180);"></i></div>
-                    <h5 class="fw-bold">Business Dashboard</h5>
-                    <p class="text-muted">Your entire business at a glance. Revenue, top products, and stock levels in
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(255,59,180,0.15);">
+                        <i class="fa-solid fa-chart-simple" style="color: rgb(255,59,180);"></i>
+                    </div>
+                    <h5 class="feature-title">Business Dashboard</h5>
+                    <p class="feature-text">Your entire business at a glance. Revenue, top products, and stock levels in
                         one screen.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ PRODUCTS ══ -->
+<section class="products-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="section-badge">Shop</span>
+            <h2 class="section-title">Our Products</h2>
+            <p class="section-subtitle">Quality curtains for every home and budget</p>
+        </div>
+        <div class="row g-4">
+
+            <div class="col-sm-6 col-md-3">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="{{ url_for('static', filename='blackout curtains.jpg') }}" alt="Blackout Curtains">
+                        <div class="product-overlay">
+                            <a href="/products" class="overlay-btn">Quick View</a>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <h5 class="product-title">Blackout Curtains</h5>
+                        <p class="product-price">KSh 11,000</p>
+                        <a href="/products" class="btn-order">Order Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="{{ url_for('static', filename='drawstring curtains.jpg') }}"
+                            alt="Drawstring Curtains">
+                        <div class="product-overlay">
+                            <a href="/products" class="overlay-btn">Quick View</a>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <h5 class="product-title">Drawstring Curtains</h5>
+                        <p class="product-price">KSh 9,500</p>
+                        <a href="/products" class="btn-order">Order Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="{{ url_for('static', filename='lace curtains.jpg') }}" alt="Lace Curtains">
+                        <div class="product-overlay">
+                            <a href="/products" class="overlay-btn">Quick View</a>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <h5 class="product-title">Lace Curtains</h5>
+                        <p class="product-price">KSh 5,000</p>
+                        <a href="/products" class="btn-order">Order Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="{{ url_for('static', filename='kids curtains.jpg') }}" alt="Kids Curtains">
+                        <div class="product-overlay">
+                            <a href="/products" class="overlay-btn">Quick View</a>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <h5 class="product-title">Kids Curtains</h5>
+                        <p class="product-price">KSh 11,000</p>
+                        <a href="/products" class="btn-order">Order Now</a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
-</div>
+</section>
 
-<!--PRODUCTS -->
-<div class="bg-light" style="padding: 60px 0px;>
-    <div class=" container">
-    <h2 class="text-center fw-bold mb-4">Our Products</h2>
-    <div class="row g-4">
-
-        <!-- Blackout Curtains -->
-        <div class="col-sm-6 col-md-3">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ url_for('static', filename='blackout curtains.jpg') }}" class="card-img-top"
-                    alt="Blackout Curtains" style="height:180px; object-fit:cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Blackout Curtains</h5>
-                    <p class="card-text text-muted">Selling Price: KSh 11,000</p>
-                    <a href="/products" class="btn btn-primary btn-sm">Order Now</a>
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="section-badge">Simple Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get your shop running in 3 easy steps</p>
+        </div>
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h5 class="step-title">Register</h5>
+                    <p class="step-text">Create your MyDuka account in seconds. No technical skills needed.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h5 class="step-title">Add Your Products</h5>
+                    <p class="step-text">Add your stock, set prices, and your shop is ready to go.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h5 class="step-title">Start Selling</h5>
+                    <p class="step-text">Record sales, track stock and watch your business grow.</p>
                 </div>
             </div>
         </div>
-
-        <!-- Drawstring Curtains -->
-        <div class="col-sm-6 col-md-3">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ url_for('static', filename='drawstring curtains.jpg') }}" class="card-img-top"
-                    alt="Drawstring Curtains" style="height:180px; object-fit:cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Drawstring Curtains</h5>
-                    <p class="card-text text-muted">Selling Price: KSh 9,500</p>
-                    <a href="/products" class="btn btn-primary btn-sm">Order Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Lace Curtains -->
-        <div class="col-sm-6 col-md-3">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ url_for('static', filename='lace curtains.jpg') }}" class="card-img-top"
-                    alt="Lace Curtains" style="height:180px; object-fit:cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Lace Curtains</h5>
-                    <p class="card-text text-muted">Selling Price: KSh 5,000</p>
-                    <a href="/products" class="btn btn-primary btn-sm">Order Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Kids Curtains -->
-        <div class="col-sm-6 col-md-3">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ url_for('static', filename='kids curtains.jpg') }}" class="card-img-top"
-                    alt="Kids Curtains" style="height:180px; object-fit:cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Kids Curtains</h5>
-                    <p class="card-text text-muted">Selling Price: KSh 11,000</p>
-                    <a href="/products" class="btn btn-primary btn-sm">Order Now</a>
-                </div>
-            </div>
-        </div>
-
     </div>
-</div>
-</div>
+</section>
 
-<!-- HOW IT WORKS -->
-<div class="directives" style="padding: 60px 0px;>
-    <div class=" container">
-    <h2 class="text-center fw-bold mb-4">How It Works</h2>
-    <div class="row text-center g-4">
-
-        <div class="col-md-4">
-            <div class="display-4 mb-2">1️.</div>
-            <h5 class="fw-bold">Register</h5>
-            <p class="text-muted">Create your MyDuka account in seconds. No technical skills needed.</p>
-        </div>
-
-        <div class="col-md-4">
-            <div class="display-4 mb-2">2️.</div>
-            <h5 class="fw-bold">Add Your Products</h5>
-            <p class="text-muted">Add your stock, set prices, and your shop is ready to go.</p>
-        </div>
-
-        <div class="col-md-4">
-            <div class="display-4 mb-2">3️.</div>
-            <h5 class="fw-bold">Start Selling</h5>
-            <p class="text-muted">Record sales, track stock and watch your business grow.</p>
-        </div>
-
-    </div>
-</div>
-</div>
-
-
-<div class="bg-primary text-white" style="padding: 60px 0px;">
+<!-- ══ CTA BANNER ══ -->
+<section class="cta-section">
     <div class="container text-center">
-        <h2 class="fw-bold">Ready to run your shop smarter?</h2>
-        <p class="lead">Join MyDuka today and take control of your business.</p>
-        <a href="/register" class="btn btn-light btn-lg me-2">Get Started Free</a>
-        <a href="https://wa.me/+254758770738" class="btn btn-outline-light btn-lg">WhatsApp Us</a>
+        <h2 class="cta-title">Ready to run your shop smarter?</h2>
+        <p class="cta-subtitle">Join MyDuka today and take control of your business.</p>
+        <div class="cta-buttons">
+            <a href="/register" class="btn-cta-primary">🚀 Get Started Free</a>
+            <a href="https://wa.me/+254758770738" class="btn-cta-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Us
+            </a>
+        </div>
     </div>
-</div>
+</section>
 
 {% endblock %}
